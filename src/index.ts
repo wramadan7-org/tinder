@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 
 import routeV1 from './routes/index';
+import connectDatabase from './config/db.config';
 
 dotenv.config();
 
@@ -22,6 +23,9 @@ app.use(helmet());
 
 // Run default route
 app.use('/v1', routeV1);
+
+// Connect the database
+connectDatabase();
 
 app.listen(port, () => {
   console.log(`Server run at port ${port}`);

@@ -8,6 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const helmet_1 = __importDefault(require("helmet"));
 const cors_1 = __importDefault(require("cors"));
 const index_1 = __importDefault(require("./routes/index"));
+const db_config_1 = __importDefault(require("./config/db.config"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
@@ -22,6 +23,8 @@ app.use(express_1.default.json());
 app.use((0, helmet_1.default)());
 // Run default route
 app.use('/v1', index_1.default);
+// Connect the database
+(0, db_config_1.default)();
 app.listen(port, () => {
     console.log(`Server run at port ${port}`);
 });
