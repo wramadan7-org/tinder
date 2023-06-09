@@ -27,7 +27,7 @@ app.use(helmet());
 app.use('/v1', routeV1);
 
 // Set response wrapper
-app.response.sendWrapped = function (message: string, statusCode, data: any) {
+app.response.sendWrapped = function (message: string, statusCode, data?: any) {
   return this.status(statusCode).send({
     status: statusCode || httpStatus.OK,
     message,
