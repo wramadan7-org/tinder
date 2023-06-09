@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
 
-import { createDataUser } from '../../models/userModel';
+import { createDataUser, getUserByEmail } from '../../models/userModel';
 import { validationRegisterDto } from '../../validations/auth/authValidation';
 import { RegisterInterface } from '../../interfaces/auth/authInterface';
 
@@ -36,6 +36,18 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       return;
     }
 
+    const existsUser = await getUserByEmail(email);
+
+    // Check length
+    if (Array.isArray(existsUser)) {
+      const lengthResults = existsUser.length;
+
+      if (lengthResults) {
+        res.sendWrapped('User already exists', httpStatus.CONFLICT);
+        return;
+      }
+    }
+
     const bcrypted = await bcrypt.hash(password, 12);
 
     const results = {
@@ -47,9 +59,9 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       password: bcrypted,
     };
 
-    const created = await createDataUser(results);
+    await createDataUser(results);
 
-    res.sendWrapped('Success', httpStatus.OK, created);
+    res.sendWrapped('Success', httpStatus.OK, results);
   } catch (error) {
     console.log(error);
     next(error);

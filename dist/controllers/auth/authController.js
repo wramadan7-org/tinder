@@ -36,6 +36,15 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             res.sendWrapped(validateResult.error.details[0].message, http_status_1.default.BAD_REQUEST);
             return;
         }
+        const existsUser = yield (0, userModel_1.getUserByEmail)(email);
+        // Check length
+        if (Array.isArray(existsUser)) {
+            const lengthResults = existsUser.length;
+            if (lengthResults) {
+                res.sendWrapped('User already exists', http_status_1.default.CONFLICT);
+                return;
+            }
+        }
         const bcrypted = yield bcrypt_1.default.hash(password, 12);
         const results = {
             firstName,
@@ -45,8 +54,8 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             email,
             password: bcrypted,
         };
-        const created = yield (0, userModel_1.createDataUser)(results);
-        res.sendWrapped('Success', http_status_1.default.OK, created);
+        yield (0, userModel_1.createDataUser)(results);
+        res.sendWrapped('Success', http_status_1.default.OK, results);
     }
     catch (error) {
         console.log(error);
