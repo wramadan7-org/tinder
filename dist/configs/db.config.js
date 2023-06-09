@@ -27,7 +27,7 @@ const connectDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield exports.pool.getConnection();
         console.log('Database connection successfully');
-        exports.pool.end();
+        // pool.end();
     }
     catch (error) {
         console.log('Unable to connect to the database');
