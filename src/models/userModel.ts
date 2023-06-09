@@ -47,6 +47,25 @@ export const getUserByEmail = async (email: string) => {
   }
 };
 
+/**
+ * Service to get list user with offset and size
+ * @param offset number
+ * @param size number
+ * @returns array
+ */
+export const getListUserWithLimit = async (offset: number, size: number) => {
+  try {
+    const query = `SELECT id, email, first_name, last_name, age, gender, profile, created_at, updated_at FROM users LIMIT ${size} OFFSET ${offset}`;
+    const data = await executeQuery(query);
+
+    console.log('DATA', data);
+
+    return data;
+  } catch (error: any) {
+    throw new CustomError(error, 500);
+  }
+};
+
 export const updateUserById = (idParam: number, dataParam: UpdateUser) => {
   const query = 'P';
 };

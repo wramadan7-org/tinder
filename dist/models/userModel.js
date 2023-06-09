@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserById = exports.getUserByEmail = exports.getAllDataUser = exports.createDataUser = void 0;
+exports.updateUserById = exports.getListUserWithLimit = exports.getUserByEmail = exports.getAllDataUser = exports.createDataUser = void 0;
 /* eslint-disable no-unused-vars */
 const queryExecute_1 = __importDefault(require("../helpers/queryExecute"));
 const customError_1 = __importDefault(require("../middlewares/customError"));
@@ -57,6 +57,24 @@ const getUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getUserByEmail = getUserByEmail;
+/**
+ * Service to get list user with offset and size
+ * @param offset number
+ * @param size number
+ * @returns array
+ */
+const getListUserWithLimit = (offset, size) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const query = `SELECT id, email, first_name, last_name, age, gender, profile, created_at, updated_at FROM users LIMIT ${size} OFFSET ${offset}`;
+        const data = yield (0, queryExecute_1.default)(query);
+        console.log('DATA', data);
+        return data;
+    }
+    catch (error) {
+        throw new customError_1.default(error, 500);
+    }
+});
+exports.getListUserWithLimit = getListUserWithLimit;
 const updateUserById = (idParam, dataParam) => {
     const query = 'P';
 };
