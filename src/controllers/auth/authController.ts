@@ -7,6 +7,7 @@ import { createDataUser, getUserByEmail } from '../../models/userModel';
 import { validationLoginDto, validationRegisterDto } from '../../validations/auth/authValidation';
 import { LoginInterface, RegisterInterface } from '../../interfaces/auth/authInterface';
 import { bcrypted, compared } from '../../helpers/bcrypting';
+import generateToken from '../../helpers/generateToken';
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -27,6 +28,8 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     // Check exists user
     const existsUser: any = await getUserByEmail(email);
 
+    let dataUser:any;
+
     // Check length
     if (Array.isArray(existsUser)) {
       if (!existsUser.length) {
@@ -40,10 +43,20 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         res.sendWrapped('Password incorrect.', httpStatus.BAD_REQUEST);
         return;
       }
+
+      dataUser = {
+        firstName: existsUser[0].first_name,
+        lastName: existsUser[0].last_name,
+        email: existsUser[0].email,
+        age: existsUser[0].age,
+        gender: existsUser[0].gender,
+      };
     }
 
+    const token = await generateToken(dataUser);
+
     const result = {
-      token: '@IGUIAFYFUYdawdaJJbkjq,dqwdqweqweqweqw',
+      token,
     };
 
     res.sendWrapped('Login successfully', httpStatus.OK, result);
