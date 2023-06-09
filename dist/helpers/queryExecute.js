@@ -11,6 +11,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable no-unused-vars */
 const db_config_1 = require("../configs/db.config");
+/**
+ * Function to execude query
+ * @param query string
+ * @param params any
+ * @returns array
+ */
 const executeQuery = (query, params) => __awaiter(void 0, void 0, void 0, function* () {
     return db_config_1.pool.query(query, params)
         .then(([rows, fields]) => rows)
