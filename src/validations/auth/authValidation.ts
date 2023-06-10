@@ -4,7 +4,7 @@ import { LoginInterface, RegisterInterface } from '../../interfaces/auth/authInt
 export const validationLoginDto = (data: LoginInterface) => {
   const schema = Joi.object(
     {
-      email: Joi.string().required(),
+      email: Joi.string().email().required(),
       password: Joi.string().required(),
     },
   );
@@ -17,7 +17,7 @@ export const validationRegisterDto = (data: RegisterInterface) => {
     {
       firstName: Joi.string().required(),
       lastName: Joi.string().required(),
-      email: Joi.string().required(),
+      email: Joi.string().email().required(),
       password: Joi.string().required(),
       age: Joi.number().required(),
       gender: Joi.string().required(),
