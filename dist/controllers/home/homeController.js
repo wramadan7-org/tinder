@@ -15,16 +15,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_1 = __importDefault(require("http-status"));
 const moment_1 = __importDefault(require("moment"));
 const userModel_1 = require("../../models/userModel");
-const historyViewModel_1 = __importDefault(require("../../models/historyViewModel"));
+const historyViewModel_1 = require("../../models/historyViewModel");
+const premiumModel_1 = require("../../models/premiumModel");
 const home = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let { page, size } = req.query;
     const { id } = req.user;
     const date = (0, moment_1.default)().format('YYYY-MM-DD');
+    let isUnlimited = false;
     const resultPage = page || (page = 1);
     const resultSize = size || (size = 10);
     const offset = (resultPage - 1) * resultSize;
     try {
-        const listUser = yield (0, userModel_1.getListUserWithLimit)(offset, resultSize, id, date);
+        let listUser;
+        const checkPremiumAccount = yield (0, premiumModel_1.getPremiumAccountByIdAndType)(id, 'unlimited');
+        if (checkPremiumAccount.length > 0) {
+            isUnlimited = true;
+            listUser = yield (0, userModel_1.getListUserWithLimit)(offset, resultSize, id, date);
+        }
+        else {
+            const checkLengthHistory = yield (0, historyViewModel_1.getHistoryViewByIdViewer)(id, date, 10);
+            if (checkLengthHistory.length >= 10) {
+                res.sendWrapped('You have reached the limit', http_status_1.default.CONFLICT);
+                return;
+            }
+            listUser = yield (0, userModel_1.getListUserWithLimit)(offset, resultSize, id, date);
+        }
         // Check length of list user
         if (listUser.length > 0) {
             // Maping list user to get own id and id user target watched
@@ -33,7 +48,7 @@ const home = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
                 return history;
             });
             // Crete multiple row from get list user id
-            yield (0, historyViewModel_1.default)(mapForHitory.toString());
+            yield (0, historyViewModel_1.createHistoryView)(mapForHitory.toString());
         }
         res.sendWrapped('List user', http_status_1.default.OK, listUser);
     }

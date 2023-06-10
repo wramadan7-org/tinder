@@ -20,6 +20,8 @@ export declare const getUserByEmail: (email: string) => Promise<import("mysql2/t
  * Service to get list user with offset and size
  * @param offset number
  * @param size number
+ * @param idViewer number
+ * @param date string
  * @returns array
  */
 export declare const getListUserWithLimit: (offset: number, size: number, idViewer: number, date: string) => Promise<import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[][] | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket") | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader")>;
