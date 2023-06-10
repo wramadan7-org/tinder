@@ -1,3 +1,3 @@
 export interface CreatePremiumAccount {
-  period: string,
+    period: string;
 }

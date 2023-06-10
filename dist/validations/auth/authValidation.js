@@ -7,7 +7,7 @@ exports.validationRegisterDto = exports.validationLoginDto = void 0;
 const joi_1 = __importDefault(require("joi"));
 const validationLoginDto = (data) => {
     const schema = joi_1.default.object({
-        email: joi_1.default.string().required(),
+        email: joi_1.default.string().email().required(),
         password: joi_1.default.string().required(),
     });
     return schema.validate(data);
@@ -17,7 +17,7 @@ const validationRegisterDto = (data) => {
     const schema = joi_1.default.object({
         firstName: joi_1.default.string().required(),
         lastName: joi_1.default.string().required(),
-        email: joi_1.default.string().required(),
+        email: joi_1.default.string().email().required(),
         password: joi_1.default.string().required(),
         age: joi_1.default.number().required(),
         gender: joi_1.default.string().required(),

@@ -24,7 +24,7 @@ export const createPremium = (id: number, period: string) => {
  * @returns data
  */
 export const getPremiumAccountById = (id: number, period: string) => {
-  const query = `SELECT * FROM premiums WHERE id_user = ${id} AND DATE(period) <= ${period}`;
+  const query = `SELECT * FROM premiums WHERE id_user = ${id} AND DATE(period) >= '${period}'`;
   const data = executeQuery(query).then((result) => result).catch((error) => {
     throw new CustomError(error, 500);
   });
