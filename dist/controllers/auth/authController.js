@@ -100,7 +100,7 @@ const registerController = (req, res, next) => __awaiter(void 0, void 0, void 0,
         };
         // Create user
         yield (0, userModel_1.createDataUser)(results);
-        res.sendWrapped('Success', http_status_1.default.OK, results);
+        res.sendWrapped('Success', http_status_1.default.CREATED, results);
     }
     catch (error) {
         console.log(error);

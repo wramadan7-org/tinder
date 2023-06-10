@@ -3,6 +3,7 @@ import authRoute from './auth/authRoute';
 import homeRoute from './homes/homeRoute';
 import premiumRoute from './premiums/premiumRoute';
 import likeRoute from './likes/likeRoute';
+import passRoute from './passes/passRoute';
 
 const app = Router();
 
@@ -22,6 +23,10 @@ const defaultRouter = [
   {
     path: '/like',
     route: likeRoute,
+  },
+  {
+    path: '/pass',
+    route: passRoute,
   },
 ];
 
