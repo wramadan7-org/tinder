@@ -119,7 +119,7 @@ export const registerController = async (req: Request, res: Response, next: Next
     // Create user
     await createDataUser(results);
 
-    res.sendWrapped('Success', httpStatus.OK, results);
+    res.sendWrapped('Success', httpStatus.CREATED, results);
   } catch (error) {
     console.log(error);
     next(error);
