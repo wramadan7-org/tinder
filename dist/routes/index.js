@@ -5,8 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const authRoute_1 = __importDefault(require("./auth/authRoute"));
-const homeRoute_1 = __importDefault(require("./home/homeRoute"));
-const premiumRoute_1 = __importDefault(require("./premium/premiumRoute"));
+const homeRoute_1 = __importDefault(require("./homes/homeRoute"));
+const premiumRoute_1 = __importDefault(require("./premiums/premiumRoute"));
+const likeRoute_1 = __importDefault(require("./likes/likeRoute"));
 const app = (0, express_1.Router)();
 const defaultRouter = [
     {
@@ -20,6 +21,10 @@ const defaultRouter = [
     {
         path: '/premium',
         route: premiumRoute_1.default,
+    },
+    {
+        path: '/like',
+        route: likeRoute_1.default,
     },
 ];
 defaultRouter.forEach(({ path, route }) => {

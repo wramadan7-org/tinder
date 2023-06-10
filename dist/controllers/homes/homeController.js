@@ -21,7 +21,6 @@ const homeController = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     let { page, size } = req.query;
     const { id } = req.user;
     const date = (0, moment_1.default)().format('YYYY-MM-DD');
-    let isUnlimited = false;
     const resultPage = page || (page = 1);
     const resultSize = size || (size = 10);
     const offset = (resultPage - 1) * resultSize;
@@ -31,7 +30,6 @@ const homeController = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         const checkPremiumAccount = yield (0, premiumModel_1.getPremiumAccountByIdAndType)(id, 'unlimited');
         // If have account premium unlimited can get another user with another day now
         if (checkPremiumAccount.length > 0) {
-            isUnlimited = true;
             listUser = yield (0, userModel_1.getListUserWithLimit)(offset, resultSize, id, date);
         }
         else {

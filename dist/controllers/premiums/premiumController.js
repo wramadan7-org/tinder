@@ -12,17 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPremiumAccountVerfied = exports.createPremiumAccountUnlimited = void 0;
+exports.createPremiumAccountVerfiedController = exports.createPremiumAccountUnlimitedController = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const premiumModel_1 = require("../../models/premiumModel");
-const createPremiumAccountUnlimited = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const createPremiumAccountUnlimitedController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.user;
+        // Check already have account with type unlimited or not
         const existsPremiumAccount = yield (0, premiumModel_1.getPremiumAccountByIdAndType)(id, 'unlimited');
+        // If already have account premium with type unlimited return error
         if (existsPremiumAccount.length > 0) {
             res.sendWrapped('You\'re account already premium unlimited', http_status_1.default.CONFLICT);
             return;
         }
+        // Create premium account with type unlimited
         yield (0, premiumModel_1.createPremiumUnlimited)(id);
         res.sendWrapped('Successfull to premium account unlimited', http_status_1.default.CREATED);
     }
@@ -31,15 +34,18 @@ const createPremiumAccountUnlimited = (req, res, next) => __awaiter(void 0, void
         next(error);
     }
 });
-exports.createPremiumAccountUnlimited = createPremiumAccountUnlimited;
-const createPremiumAccountVerfied = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createPremiumAccountUnlimitedController = createPremiumAccountUnlimitedController;
+const createPremiumAccountVerfiedController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.user;
+        // Check already have account premium with type verified or not
         const existsPremiumAccount = yield (0, premiumModel_1.getPremiumAccountByIdAndType)(id, 'verified');
+        // Check if already have account with type verified return error
         if (existsPremiumAccount.length > 0) {
             res.sendWrapped('You\'re account already premium verified', http_status_1.default.CONFLICT);
             return;
         }
+        // Create account premium with type verified
         yield (0, premiumModel_1.createPremiumVerified)(id);
         res.sendWrapped('Successfull to premium account verified', http_status_1.default.CREATED);
     }
@@ -47,4 +53,4 @@ const createPremiumAccountVerfied = (req, res, next) => __awaiter(void 0, void 0
         next(error);
     }
 });
-exports.createPremiumAccountVerfied = createPremiumAccountVerfied;
+exports.createPremiumAccountVerfiedController = createPremiumAccountVerfiedController;
