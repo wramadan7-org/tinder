@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import authenticationToken from '../../middlewares/authentication';
-import createPremiumAccount from '../../controllers/premiums/premiumController';
+import { createPremiumAccountUnlimited, createPremiumAccountVerfied } from '../../controllers/premiums/premiumController';
 
 const app = Router();
 
-app.post('/', authenticationToken, createPremiumAccount);
+app.post('/unlimited', authenticationToken, createPremiumAccountUnlimited);
+app.post('/verified', authenticationToken, createPremiumAccountVerfied);
 
 export default app;

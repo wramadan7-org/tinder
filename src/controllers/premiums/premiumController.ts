@@ -1,29 +1,51 @@
 /* eslint-disable no-unused-vars */
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import moment from 'moment';
-import { createPremium, getPremiumAccountById } from '../../models/premiumModel';
+import { createPremiumUnlimited, createPremiumVerified, getPremiumAccountByIdAndType } from '../../models/premiumModel';
 
-const createPremiumAccount = async (req: Request, res: Response, next: NextFunction) => {
+export const createPremiumAccountUnlimited = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { id } = req.user;
 
-    const aDayFromNow = moment().add(1, 'day').format('YYYY-MM-DD');
-
-    const existsPremiumAccount: any = await getPremiumAccountById(id, aDayFromNow);
+    const existsPremiumAccount: any = await getPremiumAccountByIdAndType(id, 'unlimited');
 
     if (existsPremiumAccount.length > 0) {
-      res.sendWrapped('You\'re account already premium', httpStatus.CONFLICT);
+      res.sendWrapped('You\'re account already premium unlimited', httpStatus.CONFLICT);
       return;
     }
 
-    await createPremium(id, aDayFromNow);
+    await createPremiumUnlimited(id);
 
-    res.sendWrapped('Successfull to premium account', httpStatus.CREATED);
+    res.sendWrapped('Successfull to premium account unlimited', httpStatus.CREATED);
   } catch (error: any) {
     console.log(error);
     next(error);
   }
 };
 
-export default createPremiumAccount;
+export const createPremiumAccountVerfied = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.user;
+
+    const existsPremiumAccount: any = await getPremiumAccountByIdAndType(id, 'verified');
+
+    if (existsPremiumAccount.length > 0) {
+      res.sendWrapped('You\'re account already premium verified', httpStatus.CONFLICT);
+      return;
+    }
+
+    await createPremiumVerified(id);
+
+    res.sendWrapped('Successfull to premium account verified', httpStatus.CREATED);
+  } catch (error: any) {
+    next(error);
+  }
+};

@@ -5,7 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const authentication_1 = __importDefault(require("../../middlewares/authentication"));
-const premiumController_1 = __importDefault(require("../../controllers/premiums/premiumController"));
+const premiumController_1 = require("../../controllers/premiums/premiumController");
 const app = (0, express_1.Router)();
-app.post('/', authentication_1.default, premiumController_1.default);
+app.post('/unlimited', authentication_1.default, premiumController_1.createPremiumAccountUnlimited);
+app.post('/verified', authentication_1.default, premiumController_1.createPremiumAccountVerfied);
 exports.default = app;

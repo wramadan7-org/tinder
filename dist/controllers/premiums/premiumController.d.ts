@@ -1,3 +1,3 @@
 import { Request, Response, NextFunction } from 'express';
-declare const createPremiumAccount: (req: Request, res: Response, next: NextFunction) => Promise<void>;
-export default createPremiumAccount;
+export declare const createPremiumAccountUnlimited: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+export declare const createPremiumAccountVerfied: (req: Request, res: Response, next: NextFunction) => Promise<void>;
