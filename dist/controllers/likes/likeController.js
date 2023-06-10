@@ -29,22 +29,24 @@ const createLikeController = (req, res, next) => __awaiter(void 0, void 0, void 
             res.sendWrapped(validateResult.error.details[0].message, http_status_1.default.BAD_REQUEST);
             return;
         }
+        // Check same account to like on spesifict date (one day)
+        const checkLikeSameAccountOnSpesifictDay = yield (0, likeModel_1.getLikeByIdUserAndDateAndLimitToCatchSameLikeUserInSameDay)(id, date, idUserTarget, 10);
+        if (checkLikeSameAccountOnSpesifictDay.length > 0) {
+            res.sendWrapped('You can\'t like same account in the same day', http_status_1.default.CONFLICT);
+            return;
+        }
         // Check the premium account with type unlimited
         const checkPremiumAccount = yield (0, premiumModel_1.getPremiumAccountByIdAndType)(id, 'unlimited');
         // If have account premium unlimited can like unlimited user with different day
         if (checkPremiumAccount.length > 0) {
-            console.log('PREMIUM UNLIMITED');
             yield (0, likeModel_1.createLike)(id, idUserTarget);
             res.sendWrapped('Success like user', http_status_1.default.CREATED);
             return;
         }
-        console.log('NOT PREMIUM');
         // Check length user we like
-        const checkLengthLike = yield (0, likeModel_1.getLikeByIdUser)(id, date, 10);
-        console.log('LIKES', checkLengthLike);
+        const checkLengthLikeForLimit = yield (0, likeModel_1.getLikeByIdUserAndDateAndLimitToCatchLimitLike)(id, date, 10);
         // If user we like more than 10 on same day return reach limit
-        if (checkLengthLike.length >= 10) {
-            console.log('REACH LIMIT TO LIKE ACCOUNT');
+        if (checkLengthLikeForLimit.length >= 10) {
             res.sendWrapped('You have reached the limit', http_status_1.default.CONFLICT);
             return;
         }

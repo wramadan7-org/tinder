@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import authRoute from './auth/authRoute';
-import homeRoute from './home/homeRoute';
-import premiumRoute from './premium/premiumRoute';
+import homeRoute from './homes/homeRoute';
+import premiumRoute from './premiums/premiumRoute';
+import likeRoute from './likes/likeRoute';
 
 const app = Router();
 
@@ -17,6 +18,10 @@ const defaultRouter = [
   {
     path: '/premium',
     route: premiumRoute,
+  },
+  {
+    path: '/like',
+    route: likeRoute,
   },
 ];
 

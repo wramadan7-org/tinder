@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import authenticationToken from '../../middlewares/authentication';
-import home from '../../controllers/home/homeController';
+import likeController from '../../controllers/likes/likeController';
 
 const app = Router();
 
-app.get('/', authenticationToken, home);
+app.post('/', authenticationToken, likeController);
 
 export default app;
