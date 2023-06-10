@@ -20,7 +20,6 @@ const home = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
     let { page, size } = req.query;
     const { id } = req.user;
     const date = (0, moment_1.default)().format('YYYY-MM-DD');
-    console.log(date);
     const resultPage = page || (page = 1);
     const resultSize = size || (size = 10);
     const offset = (resultPage - 1) * resultSize;

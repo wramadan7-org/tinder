@@ -10,7 +10,7 @@ const home = async (req: Request, res: Response, next: NextFunction) => {
   let { page, size } = req.query as unknown as PaginationParam;
   const { id } = req.user;
   const date = moment().format('YYYY-MM-DD');
-  console.log(date);
+
   const resultPage: number = page || (page = 1);
   const resultSize: number = size || (size = 10);
 
