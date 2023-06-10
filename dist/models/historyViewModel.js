@@ -28,7 +28,8 @@ exports.createHistoryView = createHistoryView;
  * @returns data
  */
 const getHistoryViewByIdViewer = (idViewer, date, limit) => {
-    const query = `SELECT id_watched FROM history_viewed WHERE id_viewer = ${idViewer} AND id_watched <> ${idViewer} AND DATE(created_at) = '${date}' LIMIT ${limit}`;
+    const query = `SELECT id_watched FROM history_viewed WHERE id_viewer = ${idViewer}\n
+   AND id_watched <> ${idViewer} AND DATE(created_at) = '${date}' LIMIT ${limit}`;
     const data = (0, queryExecute_1.default)(query).then((result) => result).catch((error) => {
         throw new customError_1.default(error, 500);
     });

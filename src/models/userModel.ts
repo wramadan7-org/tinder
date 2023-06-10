@@ -62,7 +62,11 @@ export const getListUserWithLimit = async (
   date: string,
 ) => {
   try {
-    const query = `SELECT id, email, first_name, last_name, age, gender, profile, created_at, updated_at FROM users WHERE id NOT IN (SELECT id_watched FROM history_viewed WHERE id_viewer = ${idViewer} AND id_watched <> ${idViewer} AND DATE(created_at) = '${date}') AND id <> ${idViewer} LIMIT ${size} OFFSET ${offset}`;
+    const query = `SELECT id, email, first_name, last_name, age, gender, profile,\n
+     created_at, updated_at FROM users WHERE id NOT IN\n
+      (SELECT id_watched FROM history_viewed WHERE id_viewer = ${idViewer}\n
+         AND id_watched <> ${idViewer} AND DATE(created_at) = '${date}')\n
+          AND id <> ${idViewer} LIMIT ${size} OFFSET ${offset}`;
     const data = await executeQuery(query);
 
     return data;

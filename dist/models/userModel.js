@@ -67,7 +67,11 @@ exports.getUserByEmail = getUserByEmail;
  */
 const getListUserWithLimit = (offset, size, idViewer, date) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const query = `SELECT id, email, first_name, last_name, age, gender, profile, created_at, updated_at FROM users WHERE id NOT IN (SELECT id_watched FROM history_viewed WHERE id_viewer = ${idViewer} AND id_watched <> ${idViewer} AND DATE(created_at) = '${date}') AND id <> ${idViewer} LIMIT ${size} OFFSET ${offset}`;
+        const query = `SELECT id, email, first_name, last_name, age, gender, profile,\n
+     created_at, updated_at FROM users WHERE id NOT IN\n
+      (SELECT id_watched FROM history_viewed WHERE id_viewer = ${idViewer}\n
+         AND id_watched <> ${idViewer} AND DATE(created_at) = '${date}')\n
+          AND id <> ${idViewer} LIMIT ${size} OFFSET ${offset}`;
         const data = yield (0, queryExecute_1.default)(query);
         return data;
     }
