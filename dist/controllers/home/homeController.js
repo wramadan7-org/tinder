@@ -27,13 +27,18 @@ const home = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
     const offset = (resultPage - 1) * resultSize;
     try {
         let listUser;
+        // Check the premium account with type unlimited
         const checkPremiumAccount = yield (0, premiumModel_1.getPremiumAccountByIdAndType)(id, 'unlimited');
+        // If have account premium unlimited can get another user with another day now
         if (checkPremiumAccount.length > 0) {
             isUnlimited = true;
             listUser = yield (0, userModel_1.getListUserWithLimit)(offset, resultSize, id, date);
         }
         else {
+            // If have't account premium unlimited only can get 10 another user with another day now
+            // Check the history view
             const checkLengthHistory = yield (0, historyViewModel_1.getHistoryViewByIdViewer)(id, date, 10);
+            // If have more than 10 history account watch in same day return reach limit
             if (checkLengthHistory.length >= 10) {
                 res.sendWrapped('You have reached the limit', http_status_1.default.CONFLICT);
                 return;

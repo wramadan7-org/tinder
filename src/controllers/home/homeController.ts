@@ -20,18 +20,24 @@ const home = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     let listUser:any;
+    // Check the premium account with type unlimited
     const checkPremiumAccount: any = await getPremiumAccountByIdAndType(id, 'unlimited');
 
+    // If have account premium unlimited can get another user with another day now
     if (checkPremiumAccount.length > 0) {
       isUnlimited = true;
       listUser = await getListUserWithLimit(offset, resultSize, id, date);
     } else {
+      // If have't account premium unlimited only can get 10 another user with another day now
+      // Check the history view
       const checkLengthHistory: any = await getHistoryViewByIdViewer(id, date, 10);
 
+      // If have more than 10 history account watch in same day return reach limit
       if (checkLengthHistory.length >= 10) {
         res.sendWrapped('You have reached the limit', httpStatus.CONFLICT);
         return;
       }
+
       listUser = await getListUserWithLimit(offset, resultSize, id, date);
     }
 
