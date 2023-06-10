@@ -22,5 +22,5 @@ export declare const getUserByEmail: (email: string) => Promise<import("mysql2/t
  * @param size number
  * @returns array
  */
-export declare const getListUserWithLimit: (offset: number, size: number) => Promise<import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[][] | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket") | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader")>;
+export declare const getListUserWithLimit: (offset: number, size: number, idViewer: number, date: string) => Promise<import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[][] | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket") | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader")>;
 export declare const updateUserById: (idParam: number, dataParam: UpdateUser) => void;

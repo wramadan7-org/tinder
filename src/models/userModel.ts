@@ -53,15 +53,21 @@ export const getUserByEmail = async (email: string) => {
  * @param size number
  * @returns array
  */
-export const getListUserWithLimit = async (offset: number, size: number) => {
+export const getListUserWithLimit = async (
+  offset: number,
+  size: number,
+  idViewer: number,
+  date: string,
+) => {
   try {
-    const query = `SELECT id, email, first_name, last_name, age, gender, profile, created_at, updated_at FROM users LIMIT ${size} OFFSET ${offset}`;
+    const query = `SELECT id, email, first_name, last_name, age, gender, profile, created_at, updated_at FROM users WHERE id NOT IN (SELECT id_watched FROM history_viewed WHERE id_viewer = ${idViewer} AND id_watched <> ${idViewer} AND DATE(created_at) = '${date}') AND id <> ${idViewer} LIMIT ${size} OFFSET ${offset}`;
     const data = await executeQuery(query);
 
     console.log('DATA', data);
 
     return data;
   } catch (error: any) {
+    console.log(error);
     throw new CustomError(error, 500);
   }
 };

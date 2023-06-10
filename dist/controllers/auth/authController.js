@@ -43,6 +43,7 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
                 return;
             }
             dataUser = {
+                id: existsUser[0].id,
                 firstName: existsUser[0].first_name,
                 lastName: existsUser[0].last_name,
                 email: existsUser[0].email,
