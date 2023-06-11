@@ -1,4 +1,4 @@
-import { CreateUser, UpdateUser } from '../interfaces/users/userInterface';
+import { CreateUser } from '../interfaces/users/userInterface';
 /**
  * Service to create data user
  * @param dataParam object
@@ -25,4 +25,16 @@ export declare const getUserByEmail: (email: string) => Promise<import("mysql2/t
  * @returns array
  */
 export declare const getListUserWithLimit: (offset: number, size: number, idViewer: number, date: string) => Promise<import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[][] | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket") | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader")>;
-export declare const updateUserById: (idParam: number, dataParam: UpdateUser) => void;
+/**
+ * Service to get user by ID
+ * @param id number
+ * @returns data
+ */
+export declare const getUserById: (id: number) => Promise<import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[][] | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket") | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader")>;
+/**
+ * Update profile by ID user
+ * @param idUser number
+ * @param profile string
+ * @returns data
+ */
+export declare const updateProfileUser: (idUser: number, profile: string) => Promise<import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[][] | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket") | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader")>;

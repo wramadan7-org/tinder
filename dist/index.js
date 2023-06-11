@@ -27,6 +27,8 @@ app.use(express_1.default.json());
 app.use((0, helmet_1.default)());
 // Run default route
 app.use('/v1', index_1.default);
+// Server static file
+app.use('/static', express_1.default.static('./public'));
 // Set response wrapper
 app.response.sendWrapped = function (message, statusCode, data) {
     return this.status(statusCode).send({

@@ -9,6 +9,7 @@ const homeRoute_1 = __importDefault(require("./homes/homeRoute"));
 const premiumRoute_1 = __importDefault(require("./premiums/premiumRoute"));
 const likeRoute_1 = __importDefault(require("./likes/likeRoute"));
 const passRoute_1 = __importDefault(require("./passes/passRoute"));
+const userRoute_1 = __importDefault(require("./users/userRoute"));
 const app = (0, express_1.Router)();
 const defaultRouter = [
     {
@@ -30,6 +31,10 @@ const defaultRouter = [
     {
         path: '/pass',
         route: passRoute_1.default,
+    },
+    {
+        path: '/user',
+        route: userRoute_1.default,
     },
 ];
 defaultRouter.forEach(({ path, route }) => {

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserById = exports.getListUserWithLimit = exports.getUserByEmail = exports.getAllDataUser = exports.createDataUser = void 0;
+exports.updateProfileUser = exports.getUserById = exports.getListUserWithLimit = exports.getUserByEmail = exports.getAllDataUser = exports.createDataUser = void 0;
 /* eslint-disable no-unused-vars */
 const queryExecute_1 = __importDefault(require("../helpers/queryExecute"));
 const customError_1 = __importDefault(require("../middlewares/customError"));
@@ -81,7 +81,30 @@ const getListUserWithLimit = (offset, size, idViewer, date) => __awaiter(void 0,
     }
 });
 exports.getListUserWithLimit = getListUserWithLimit;
-const updateUserById = (idParam, dataParam) => {
-    const query = 'P';
+/**
+ * Service to get user by ID
+ * @param id number
+ * @returns data
+ */
+const getUserById = (id) => {
+    const query = `SELECT * FROM users WHERE id = ${id}`;
+    const data = (0, queryExecute_1.default)(query).then((result) => result).catch((error) => {
+        throw new customError_1.default(error, 500);
+    });
+    return data;
 };
-exports.updateUserById = updateUserById;
+exports.getUserById = getUserById;
+/**
+ * Update profile by ID user
+ * @param idUser number
+ * @param profile string
+ * @returns data
+ */
+const updateProfileUser = (idUser, profile) => {
+    const query = `UPDATE users SET profile = '${profile}' WHERE id = ${idUser}`;
+    const data = (0, queryExecute_1.default)(query).then((result) => result).catch((error) => {
+        throw new customError_1.default(error, 500);
+    });
+    return data;
+};
+exports.updateProfileUser = updateProfileUser;

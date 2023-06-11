@@ -30,6 +30,9 @@ app.use(helmet());
 // Run default route
 app.use('/v1', routeV1);
 
+// Server static file
+app.use('/static', express.static('./public'));
+
 // Set response wrapper
 app.response.sendWrapped = function (message: string, statusCode, data?: any) {
   return this.status(statusCode).send({

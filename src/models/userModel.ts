@@ -76,6 +76,31 @@ export const getListUserWithLimit = async (
   }
 };
 
-export const updateUserById = (idParam: number, dataParam: UpdateUser) => {
-  const query = 'P';
+/**
+ * Service to get user by ID
+ * @param id number
+ * @returns data
+ */
+export const getUserById = (id: number) => {
+  const query = `SELECT * FROM users WHERE id = ${id}`;
+  const data = executeQuery(query).then((result) => result).catch((error) => {
+    throw new CustomError(error, 500);
+  });
+
+  return data;
+};
+
+/**
+ * Update profile by ID user
+ * @param idUser number
+ * @param profile string
+ * @returns data
+ */
+export const updateProfileUser = (idUser: number, profile: string) => {
+  const query = `UPDATE users SET profile = '${profile}' WHERE id = ${idUser}`;
+  const data = executeQuery(query).then((result) => result).catch((error) => {
+    throw new CustomError(error, 500);
+  });
+
+  return data;
 };
