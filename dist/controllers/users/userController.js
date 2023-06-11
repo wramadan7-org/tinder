@@ -41,8 +41,8 @@ const updateImageProfileController = (req, res, next) => __awaiter(void 0, void 
         }
         const typeFile = ((_a = req.file) === null || _a === void 0 ? void 0 : _a.mimetype.split('/')[1]) || '.jpg';
         const renameFile = `static/images/profiles/${req.user.id}-${req.user.firstName}-${req.user.lastName}.${typeFile}`;
-        const update = yield (0, userModel_1.updateProfileUser)(id, renameFile);
-        res.sendWrapped('Success update profile', http_status_1.default.OK, update);
+        yield (0, userModel_1.updateProfileUser)(id, renameFile);
+        res.sendWrapped('Success update profile', http_status_1.default.OK);
     }
     catch (error) {
         console.log(error);

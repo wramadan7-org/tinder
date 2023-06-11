@@ -37,9 +37,9 @@ export const updateImageProfileController = async (
     const typeFile = req.file?.mimetype.split('/')[1] || '.jpg';
     const renameFile = `static/images/profiles/${req.user.id}-${req.user.firstName}-${req.user.lastName}.${typeFile}`;
 
-    const update = await updateProfileUser(id, renameFile);
+    await updateProfileUser(id, renameFile);
 
-    res.sendWrapped('Success update profile', httpStatus.OK, update);
+    res.sendWrapped('Success update profile', httpStatus.OK);
   } catch (error: any) {
     console.log(error);
     next(error);
