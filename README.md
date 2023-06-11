@@ -27,6 +27,10 @@ SECRET=your_secret
 
 Export database the database in the file above.
 
+## Information
+
+If folder public\images\profiles\ in root is not exists, please create manual
+
 ## Commands
 
 Running locally:
@@ -38,16 +42,17 @@ npm run dev
 ## Project Structure
 
 ```
-@types\             # Define variable for Request or Response on Express
-dist\               # Results of compiling typescript file
+@types\                 # Define variable for Request or Response on Express
+dist\                   # Results of compiling typescript file
+public\images\profiles\ # Files of the profile user
 src\
- |--configs\        # Configuration database
- |--controllers\    # Route controllers
- |--helpers\        # Utility classes and functions
- |--interface\      # Custom the interface for variable type
- |--middlewares\    # Custom express middlewares
- |--models\         # Business logic and interaction with database
- |--routes\         # Routes
- |--validations\    # Request data validation schemas
- |--index.js        # Express app
+ |--configs\            # Configuration database
+ |--controllers\        # Route controllers
+ |--helpers\            # Utility classes and functions
+ |--interface\          # Custom the interface for variable type
+ |--middlewares\        # Custom express middlewares
+ |--models\             # Business logic and interaction with database
+ |--routes\             # Routes
+ |--validations\        # Request data validation schemas
+ |--index.js            # Express app
 ```
