@@ -31,6 +31,8 @@ Export database the database in the file above.
 
 If folder public\images\profiles\ in root is not exists, please create manual
 
+Please register more than 10 user to test all endpoint
+
 ## Commands
 
 Running locally:
